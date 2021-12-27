@@ -26,4 +26,30 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+//PATCH one user
+router.patch("/:id/edit", async (req, res) => {
+  try {
+    const updateUser = await UsersModel.findOneAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    res.status(200).json(updateUser);
+  } catch (e) {
+    console.log(e, "There was an error updating your account");
+  }
+});
+
+//DELETE user
+router.delete("/:id/delete", async (req, res) => {
+  try {
+    const deleteUser = await UsersModel.findOneAndDelete({
+      id: req.params.id,
+    });
+    res.status(200).json(deleteUser);
+  } catch (e) {
+    console.log(e), "User not deleted";
+  }
+});
+
 module.exports = router;
