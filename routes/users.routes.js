@@ -2,17 +2,8 @@ const express = require("express");
 const router = express.Router();
 const UsersModel = require("../models/users.model");
 
-//GET users listing
-router.get("/", async (req, res) => {
-  try {
-    const users = await UsersModel.find();
-    //send the json response
-    res.status(200).json(users);
-  } catch (err) {
-    console.log(err);
-  }
-});
 
+//! CREATE
 // CREATE user
 router.post("/create-user", async (req, res) => {
   try {
@@ -31,6 +22,19 @@ router.post("/create-user", async (req, res) => {
   }
 });
 
+
+//! READ
+//GET users listing
+router.get("/", async (req, res) => {
+  try {
+    const users = await UsersModel.find();
+    //send the json response
+    res.status(200).json(users);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 // GET one user
 router.get("/:id", async (req, res) => {
   try {
@@ -42,6 +46,8 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+
+//! UPDATE (PATCH)
 //PATCH one user
 router.patch("/:id/edit", async (req, res) => {
   try {
@@ -56,6 +62,8 @@ router.patch("/:id/edit", async (req, res) => {
   }
 });
 
+
+//! DELETE
 //DELETE user
 router.delete("/:id/delete", async (req, res) => {
   try {
