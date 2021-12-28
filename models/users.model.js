@@ -12,7 +12,7 @@ const usersSchema = new Schema({
     trim: true,
   },
   password: { type: String, required: true },
-  contracts: [{ type: Schema.Types.ObjectId, ref: "contract" }],
+  contracts: [{ type: Schema.Types.ObjectId, ref: "contracts" }],
 });
 
 const usersModel = mongoose.model("users", usersSchema);

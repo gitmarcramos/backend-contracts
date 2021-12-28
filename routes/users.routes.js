@@ -13,12 +13,28 @@ router.get("/", async (req, res) => {
   }
 });
 
+// CREATE user
+router.post("/create-user", async (req, res) => {
+  try {
+    const checkUser = await UsersModel.findOne({ email: req.body.email });
+
+    if (checkUser) {
+      console.log("User already exists");
+    } else {
+      const allUsers = await UsersModel.find();
+      const newUser = await UsersModel.create({ ...req.body });
+      console.log(newUser);
+      res.status(200).json(newUser);
+    }
+  } catch (err) {
+    console.log(err, "User not created");
+  }
+});
+
 // GET one user
 router.get("/:id", async (req, res) => {
   try {
-    const testLoggedUser = await UsersModel.findById(
-      "61ca3389158195087f34e59c"
-    );
+    const testLoggedUser = await UsersModel.findById(req.params.id);
     console.log(testLoggedUser);
     res.status(200).json(testLoggedUser);
   } catch (e) {
